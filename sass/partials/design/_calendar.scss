@@ -1,0 +1,243 @@
+// Styling for individual events
+article.node-calendar-event-public {
+  #page-title {
+    margin-bottom: 0px;
+  }
+  .field-name-field-cal-event-date {
+    font-size: 1.2em;
+    font-weight: bolder;
+  }
+  .cal-display-details-location {
+    font-size: 1.2em;
+    font-style: italic;
+  }
+  .cal-display-details {
+    @include span-columns(3, 6);
+  }
+  .cal-display-metadata {
+    @include span-columns(3 omega,6);
+      h4 {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+      .cal-display-target-audience,
+      .cal-display-event-category {
+        margin-bottom: .5em;
+      }
+      .cal-event-location-map {
+        img {
+          margin: .2em 0 -.5em;
+        }
+      }
+  }
+  .calendar-events-upcoming {
+    ul {
+      list-style: none;
+        li {
+          div {
+            &.views-field-title {
+              font-weight: bold;
+            }
+            &.views-field-field-cal-event-date {
+              font-style: italic;
+              margin-left: 5px;
+            }
+            display: inline;
+          }
+        }
+    }
+  }
+  img {}
+  a {
+    @extend .clean-links;
+  }
+}
+
+.page-calendar {
+  div#main { // Global styling to remove the padding at the bottom of the page for calendars
+    padding-bottom: 0;
+  }
+  div.feed-icon { // Global styling of iCal feed icon
+    text-align: right;
+    font-weight: bold;
+    padding-right: 18px;
+    padding-left: 5px;
+      img {
+        vertical-align: sub;
+      }
+      &:before {
+        content: ('Add to Your Calendar\00a0'); // The \00a0 is the hex code for a non breaking space
+      }
+  }
+  div.tabs {
+    position: absolute;
+    margin-top: 72px; // Positioning is a little hacky since the tabs live in the page tpl, and the pager in the views tpl. A custom page tpl or preprocessing could fix this, but currently short on time
+    ul.tabs.primary { // Global month / week / day / year navigation styling
+      border: none;
+      margin: 7px 5px;
+        li {
+          padding: 7px 0 6px;
+          background-color: lighten($gray-highlight, 5%);
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          display: inline;
+          &:hover,
+          &:focus {
+            background-color: $white;
+          }
+            a {
+              border: none;
+              background: transparent;
+              border-radius: 5px;
+              margin: 0;
+              padding: 7px 10px 6px;
+              color: darken($color-libgreen, 5%);
+              font-weight: bold;
+              position: relative; // These two lines are dumb but necessary or the link gets covered up due to wonky markup
+              z-index: 10;        // These two lines are dumb but necessary or the link gets covered up due to wonky markup
+                &.active {
+                  background-color: $white;
+                }
+            }
+        }
+    }
+  }
+  div.view-filters { // Styling of the exposed filters for category / location / etc
+    float: right;
+    text-align: right;
+    position: relative;
+    z-index: 1;
+      .views-exposed-widget {
+        padding: 6px 8px 5px 0;
+        // float: none;
+      }
+  }
+  ul.pager { // Global prev / next navigation styling
+    .date-prev,
+    .date-next {
+      background-color: lighten($gray-highlight, 5%);
+      border: 1px solid #ccc;
+      display: inline;
+      &:hover,
+      &:focus {
+        background-color: $white;
+      }
+    }
+    .date-prev {
+      right: 80px;
+    }
+    .date-next {
+      right: 15px;
+    }
+  }
+}
+
+// Styling of the various calendar views
+div.view-cal-public-calendar {
+  color: darken($color-libgreen, 5%);
+    table tr {
+      border: none;
+    }
+    a {
+      word-wrap: normal;
+    }
+  .date-heading {
+    h3 {
+      color: $color-ut;
+    }
+  }
+  .date-nav-wrapper {
+    margin-top: 10px;
+      .date-nav {
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+  }
+  .calendar-calendar .year-view { // Year view specific styling
+    td {
+      padding: 0 0.5em;
+      text-align: center;
+    }
+    td.today {
+      background-color: transparentize($color-libgreen, .8);
+      border: 1px solid $color-libgreen;
+    }
+    td.mini a {
+      font-weight: bold;
+    }
+    .mini-day-off,
+    .mini-day-on {
+      padding-top: 2px;
+    }
+    .date-nav {
+      padding:1px 1px 0;
+      background-color: $gray-light; // Using a pre-existing variable, however it just conveniently matches up with the default weekday letter border color
+    }
+    .date-heading {
+      background-color: lighten($gray-highlight, 5%);
+        a {
+          color: darken($color-libgreen, 5%);
+          font-size: 1.3em;
+          line-height: 1.6em;
+        }
+    }
+  }
+  .calendar-calendar .month-view { // Month view specific styling
+    th,
+    td.date-box.empty,
+    td.single-day.empty {
+      background-color: lighten($gray-highlight, 5%);
+    }
+    .date-nav-wrapper {
+      margin-top: 0;
+    }
+    .full td.multi-day div.monthview,
+    .full td.multi-day div.monthview .cutoff {
+      background-color: $color-ut;
+    }
+    .full td.multi-day div.monthview a {
+      color: $gray-highlight;
+    }
+    .inner .item a {
+      font-size: 1.2em;
+    }
+  }
+  .calendar-calendar .week-view { // Week view specific styling
+    th {
+      background-color: lighten($gray-highlight, 5%);
+      border: 1px solid #ccc;
+      // Removed the borders below to hide the fact that the table columns don't line up perfectly, and to visually get rid of the placeholders on the left and right
+      border-left: none;
+      border-right: none;
+    }
+  }
+  .calendar-calendar .month-view .full tr td.today,
+  .calendar-calendar .month-view .full tr.odd td.today,
+  .calendar-calendar .month-view .full tr.even td.today {
+    background: none;
+    border-left: 2px solid $color-libgreen;
+    border-right: 2px solid $color-libgreen;
+  }
+  .calendar-calendar .month-view .full td.date-box.today {
+    border-color: $color-libgreen;
+  }
+  .calendar-calendar .month-view .full tr td.single-day.today {
+    border-bottom: 2px solid $color-libgreen;
+  }
+  .calendar-calendar .month-view .full tr td.multi-day.starts-today {
+    border-left: 2px solid $color-libgreen;
+  }
+  .calendar-calendar .month-view .full tr td.multi-day.ends-today {
+    border-right: 2px solid $color-libgreen;
+  }
+  .calendar-calendar th.days {
+    color: darken($color-libgreen, 5%);
+  }
+  .calendar-calendar td,
+  .calendar-calendar td.empty { // Colors the day number in cells with no events
+    color: lighten($color-libgreen, 5%);
+  }
+  .calendar-calendar div.day { // Keeps the day number from bumping into the right hand border
+    width: auto;
+  }
+}
