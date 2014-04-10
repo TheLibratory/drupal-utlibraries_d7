@@ -179,7 +179,7 @@
           ?>
         <div class="frontpage-block-footer">  
           <hr>
-          <p class="more-in-category"><a href="/d7/<?php print render($content['field_url_short_title'][0]['#markup']); ?>/events/" alt="More News">More News</a></p>
+          <p class="more-in-category"><a href="/d7/<?php print render($content['field_url_short_title'][0]['#markup']); ?>/news/events/" alt="More News">More News</a></p>
         </div>
       </div>
       </div>
